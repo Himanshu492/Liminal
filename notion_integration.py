@@ -247,6 +247,7 @@ def fetch_notion_context():
         headers=HEADERS,
         json={}
     )
+
     for page in res.json().get("results", []):
         name = page["properties"]["Name"]["title"]
         if name:
@@ -274,6 +275,7 @@ def get_or_create_company(company_name):
             }
         }
     )
+    
     print("  Created company: " + company_name)
     return res.json()["id"]
 
