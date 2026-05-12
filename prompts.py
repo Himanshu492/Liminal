@@ -149,42 +149,42 @@ def stage7_notion_structure(stage1_output, stage6_output, notion_context):
 
     return f"""Based on this context and task breakdown, produce a JSON object for a Notion workspace.
 
-    CONTEXT:
-    {stage1_output}
+            CONTEXT:
+            {stage1_output}
 
-    TASK BREAKDOWN:
-    {stage6_output}
+            TASK BREAKDOWN:
+            {stage6_output}
 
-    EXISTING NOTION DATA (do not duplicate these — reuse names exactly if they match):
-    Companies: {existing_companies}
-    Projects: {existing_projects}
-    Tasks (sample): {existing_tasks}
+            EXISTING NOTION DATA (do not duplicate these — reuse names exactly if they match):
+            Companies: {existing_companies}
+            Projects: {existing_projects}
+            Tasks (sample): {existing_tasks}
 
-    PRIORITY RULES — follow these strictly:
-    - P1: must be built in week 1, blocks everything else
-    - P2: important but not blocking week 1
-    - P3: future development, deferred features, nice-to-haves
-    - If a task is labelled "future", "defer", "later", "v2", or "nice to have" — always P3
-    - Urgency and Importance must reflect actual MVP priority, not aspirational priority
+            PRIORITY RULES — follow these strictly:
+            - P1: must be built in week 1, blocks everything else
+            - P2: important but not blocking week 1
+            - P3: future development, deferred features, nice-to-haves
+            - If a task is labelled "future", "defer", "later", "v2", or "nice to have" — always P3
+            - Urgency and Importance must reflect actual MVP priority, not aspirational priority
 
-    Return ONLY valid JSON, no explanation, no markdown, no backticks. Exactly this structure:
-    {{
-      "projects": [
-        {{
-          "name": "string — project name",
-          "priority": "P1 or P2 or P3",
-          "tasks": [
+            Return ONLY valid JSON, no explanation, no markdown, no backticks. Exactly this structure:
             {{
-              "name": "string — specific task name",
-              "urgency": "High or Medium or Low",
-              "importance": "High or Medium or Low",
-              "priority": "P1 or P2 or P3",
-              "tags": ["pick from: API, Backend, Database, Frontend, Auth, Notifications, Devops, Research"]
-            }}
-          ]
-        }}
-      ]
-    }}"""
+            "projects": [
+                {{
+                "name": "string — project name",
+                "priority": "P1 or P2 or P3",
+                "tasks": [
+                    {{
+                    "name": "string — specific task name",
+                    "urgency": "High or Medium or Low",
+                    "importance": "High or Medium or Low",
+                    "priority": "P1 or P2 or P3",
+                    "tags": ["pick from: API, Backend, Database, Frontend, Auth, Notifications, Devops, Research"]
+                    }}
+                ]
+                }}
+            ]
+            }}"""
 
 
 def stage8_meeting_note(brief, stage1_output, stage4_output, stage5_output):

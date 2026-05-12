@@ -1,3 +1,4 @@
+import json, pathlib
 import streamlit as st
 from chain import call_ai, parse_notion_payload
 from notion_integration import push_to_notion, fetch_notion_context
@@ -33,6 +34,18 @@ st.caption(
     "flags production risks, surfaces open questions, and pushes structured output to Notion."
 )
 st.divider()
+
+# ── demo loader ─────────────────────────────────────────────────────────────
+_DEMO_FILE = pathlib.Path("/tmp/demo_brief.json")
+if st.button("Load from Phone", help="Reads the last payload sent to receiver.py"):
+    if _DEMO_FILE.exists():
+        _data = json.loads(_DEMO_FILE.read_text())
+        st.session_state.company_name = _data.get("company", "")
+        st.session_state.brief = _data.get("brief", "")
+        _DEMO_FILE.unlink()
+        st.rerun()
+    else:
+        st.warning("No demo payload received yet. Send a POST to receiver.py first.")
 
 # ── input ───────────────────────────────────────────────────────────────────
 col_brief, col_company = st.columns([4, 1])
